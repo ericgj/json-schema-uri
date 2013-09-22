@@ -1,0 +1,16 @@
+{
+  "name": "json-schema-uri",
+  "repo": "ericgj/json-schema-uri",
+  "description": "URI data structure for JSON Schema",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {
+    "timoxley/assert": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
