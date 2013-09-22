@@ -144,7 +144,7 @@ Uri.prototype.canonical = function(href) {// RFC 3986
 	href = new Uri(href);
 	var base = this;
 
-	return !href.href() || !base.href() ? null : (href.protocol() || base.protocol()) +
+	return (href.protocol() || base.protocol()) +
 		(href.protocol() || href.authority() ? href.authority() : base.authority()) +
 		removeDotSegments(href.protocol() || href.authority() || href.pathname().charAt(0) === '/' ? href.pathname() : (href.pathname() ? ((base.authority() && !base.pathname() ? '/' : '') + base.pathname().slice(0, base.pathname().lastIndexOf('/') + 1) + href.pathname()) : base.pathname() )) +
 		(href.protocol() || href.authority() || href.pathname() ? href.search() : (href.search() || base.search() )) +
