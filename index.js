@@ -76,10 +76,21 @@ Uri.prototype.base = function(){
   return uri;
 }
 
+Uri.prototype.join = function(uri){
+  return new this.constructor(this.canonical(uri.toString()));
+}
+
 // fragment == hash
 Uri.prototype.fragment = function(str){ 
   return this.hash(str); 
 }
+
+Uri.prototype.isFragment = function(){
+  return !!this.hash() && 
+         !this.protocol() && !this.authority() &&
+         !this.host() && !this.pathname() &&
+         !this.search();
+}        
 
 Uri.prototype.fragmentPush = function(str){
   var path = this._hash

@@ -47,6 +47,38 @@ describe('json-schema-uri', function(){
 
   })
 
+  describe('join', function(){
+
+    it('should canonical join with another instance', function(){
+      var subject = 'http://example.com:8080/some/path?query=string;another=value';
+      subject = Uri(subject);
+      var another = 'http://example.com:8808/another/rainbow#/fragment/path';
+      var act = subject.join(another);
+      console.log("join: %o", act);
+      assert(act.toString() == another);
+    });
+
+  })
+
+  describe('isFragment', function(){
+
+    it('should return true if only fragment', function(){
+      var subject = Uri('#/hash/path');
+      assert(subject.isFragment());
+    })
+
+    it('should return true if root fragment', function(){
+      var subject = Uri('#');
+      assert(subject.isFragment());
+    })
+
+    it('should not return true if more than a fragment', function(){
+      var subject = Uri('/one/two#/three/four');
+      assert(false == subject.isFragment());
+    })
+  
+  })
+
   describe('fragment part stack operations', function(){
 
     it('should unshift onto fragment uri', function(){
