@@ -22,6 +22,13 @@ describe('json-schema-uri', function(){
       assert(act.search()=='?query=string;another=value');
       assert(act.hash()=='#hash/path');
     })
+
+    it('should parse no hash', function(){
+      var subject = 'http://example.com:8080/some/path?query=string;another=value';
+      var act = Uri(subject);
+      assert(act.hash()=='');
+    })
+
   })
 
   describe('clone', function(){
@@ -56,7 +63,27 @@ describe('json-schema-uri', function(){
       var act = subject.join(another);
       console.log("join: %o", act);
       assert(act.toString() == another);
-    });
+    })
+
+
+    it('should canonical join with a relative path', function(){
+      var subject = 'http://example.com:8080/some/path?query=string;another=value';
+      subject = Uri(subject);
+      var another = 'another/path';
+      var act = subject.join(another);
+      console.log("join: %o", act);
+      assert(act.toString() == 'http://example.com:8080/some/another/path');
+    })
+
+
+    it('should canonical join a blank URI with another', function(){
+      var subject = '';
+      subject = Uri(subject);
+      var another = 'http://example.com:8080/some/path#';
+      var act = subject.join(another);
+      console.log("join: %o", act);
+      assert(act.toString() == 'http://example.com:8080/some/path#');
+    })
 
   })
 

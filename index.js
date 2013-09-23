@@ -39,7 +39,7 @@ Uri.prototype.parse = function(str){
 
 forEach.call(PARTS, function(prop){
   Uri.prototype[prop] = function(str){ 
-    if (arguments.length == 1){ this['_'+prop] = String(str); }
+    if (arguments.length == 1){ this['_'+prop] = String(str || ''); }
     else    { return this['_'+prop]; }
   }
 })
