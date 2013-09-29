@@ -2,7 +2,7 @@
   "name": "json-schema-uri",
   "repo": "ericgj/json-schema-uri",
   "description": "URI data structure for JSON Schema",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "keywords": [],
   "dependencies": {},
   "development": {
