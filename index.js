@@ -13,7 +13,7 @@ var forEach = Array.forEach || function(fn){
 
 function Uri(str){
   if (!(this instanceof Uri)) return new Uri(str);
-  this.parse(str || '');
+  this.parse(str);
   return this;
 }
 
@@ -21,6 +21,7 @@ function Uri(str){
 //   -  released as public domain by author ("Yaffle") - see comments on gist
 
 Uri.prototype.parse = function(str){
+  str = (str || '').toString();
   var m = String(str).replace(/^\s+|\s+$/g, '').match(/^([^:\/?#]+:)?(\/\/(?:[^:@]*(?::[^:@]*)?@)?(([^:\/?#]*)(?::(\d*))?))?([^?#]*)(\?[^#]*)?(#[\s\S]*)?/);
   // authority = '//' + user + ':' + pass '@' + hostname + ':' port
   this.reset();
@@ -70,14 +71,18 @@ Uri.prototype.clone = function(){
 }
 
 // URI minus the query string and hash part
-Uri.prototype.base = function(){
+Uri.prototype.baseUri = function(){
   var uri = this.clone();
   uri.search(''); uri.hash('');
   return uri;
 }
 
+Uri.prototype.base = function(){
+  return this.baseUri().toString();
+}
+
 Uri.prototype.join = function(uri){
-  return new this.constructor(this.canonical(uri.toString()));
+  return new this.constructor(this.canonical(uri));
 }
 
 // fragment == hash
@@ -151,7 +156,8 @@ Uri.prototype.canonical = function(href) {// RFC 3986
 		return output.join('').replace(/^\//, input.charAt(0) === '/' ? '/' : '');
 	}
 
-	href = new Uri(href);
+    href = href || '';
+	if ('string' == typeof href) href = new this.constructor(href);
 	var base = this;
 
 	return (href.protocol() || base.protocol()) +

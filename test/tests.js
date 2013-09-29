@@ -29,6 +29,20 @@ describe('json-schema-uri', function(){
       assert(act.hash()=='');
     })
 
+    it('should parse if given a URI object', function(){
+      var subject = 'http://example.com:8080/some/path?query=string;another=value#hash/path';
+      subject = Uri(subject);
+      var act = Uri(subject);
+      assert(act.protocol()=='http:');
+      assert(act.authority()=='//example.com:8080');
+      assert(act.host()=='example.com:8080');
+      assert(act.hostname()=='example.com');
+      assert(act.port()=='8080');
+      assert(act.pathname()=='/some/path');
+      assert(act.search()=='?query=string;another=value');
+      assert(act.hash()=='#hash/path');
+    })
+
   })
 
   describe('clone', function(){
@@ -57,8 +71,8 @@ describe('json-schema-uri', function(){
       var subject = 'http://example.com:8080/some/path?query=string;another=value#hash/path';
       subject = Uri(subject);
       var act = subject.base();
-      console.log("base: %o", act);
-      assert(act.toString() == 'http://example.com:8080/some/path');
+      console.log("base: %s", act);
+      assert(act == 'http://example.com:8080/some/path');
     });
 
     it('should not alter original', function(){
@@ -72,7 +86,7 @@ describe('json-schema-uri', function(){
 
   describe('join', function(){
 
-    it('should canonical join with another instance', function(){
+    it('should canonical join with a string', function(){
       var subject = 'http://example.com:8080/some/path?query=string;another=value';
       subject = Uri(subject);
       var another = 'http://example.com:8808/another/rainbow#/fragment/path';
@@ -81,6 +95,15 @@ describe('json-schema-uri', function(){
       assert(act.toString() == another);
     })
 
+    it('should canonical join with another URI', function(){
+      var subject = 'http://example.com:8080/some/path?query=string;another=value';
+      subject = Uri(subject);
+      var another = 'http://example.com:8808/another/rainbow#/fragment/path';
+      another = Uri(another);
+      var act = subject.join(another);
+      console.log("join: %o", act);
+      assert(act.toString() == another.toString());
+    })
 
     it('should canonical join with a relative path', function(){
       var subject = 'http://example.com:8080/some/path?query=string;another=value';
