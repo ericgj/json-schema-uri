@@ -81,9 +81,8 @@ Uri.prototype.join = function(uri){
 }
 
 // fragment == hash
-Uri.prototype.fragment = function(str){ 
-  return this.hash(str); 
-}
+Uri.prototype.fragment = Uri.prototype.hash;
+
 
 Uri.prototype.isFragment = function(){
   return !!this.hash() && 
