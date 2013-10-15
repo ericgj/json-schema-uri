@@ -1,5 +1,5 @@
 {
-  "name": "json-schema-uri",
+  "name": "json-schema-uri-component",
   "version": "0.0.5",
   "description": "URI parsing for JSON Schema",
   "main": "index.js",

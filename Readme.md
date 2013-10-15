@@ -7,7 +7,14 @@
 
 ## Installation
 
+component:
+
     $ component install ericgj/json-schema-uri
+
+npm:
+
+    $ npm install json-schema-uri-component
+
 
 ## API
 
