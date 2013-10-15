@@ -1,8 +1,5 @@
-var assert = require('timoxley-assert')
+var assert = require('assert')
   , Uri = require('json-schema-uri')
-
-
-//var PARTS = ['protocol','authority','host','hostname','port','pathname','search','hash']
 
 ///////////////////////////////////
 
